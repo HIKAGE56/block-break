@@ -10,32 +10,30 @@ var HEIG = 20;
 var WIDTH = SIZE * WIDE;
 var HEIGHT = SIZE * HEIG;
 function main(){
-    game = new Game(WIDTH, HEIGHT); // game stage
+    game = new Core(WIDTH, HEIGHT); // game stage
     game.preload('img/IMG_1212.PNG'); 
-    game.fps = 100;
+    game.fps = 10;
     game.rootScene.backgroundColor = "black";
+    game.collidables = [];
+
+    ["left", "right", "upper"].forEach(function(val, idx, arr) {
+		var wall = new Wall(val);
+		game.rootScene.addChild(wall);
+		game.collidables.push(wall);
+	});
     msg = new MSG(SIZE,SIZE,"white");
-    msg2 = new MSG(SIZE,SIZE * 2,"white");
-    blockData = getBlocks(1,1);
-    blocks = new Array();
-    stage = new Group();
-    for(i = 0; i < HEIG; i++){
-        blocks[i] = new Array();
-        for(j = 0; j < WIDE; j++){
-            if(blockData[i][j] != 0){
-                blocks[i][j] = new Block(i,j,blockData[i][j]);
-                stage.addChild(blocks[i][j]);
-            }
-        }
-    }
     player = new Player(4,17);
-    ball = new Ball(5,16);
+    game.paddle = player;
+    game.collidables.push(player);
+    ball = new Ball(5,14);
+    game.ball = ball;
+    stage = new Stage();
+    game.collidables.push(stage);
     game.onload = function(){
         game.rootScene.addChild(stage);
         game.rootScene.addChild(player);
         game.rootScene.addChild(ball);
         game.rootScene.addChild(msg);
-        game.rootScene.addChild(msg2);
     };
     game.start(); // start your game!
 };

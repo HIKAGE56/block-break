@@ -2540,7 +2540,7 @@ enchant.Entity = enchant.Class.create(enchant.Node, {
      * collision detection.
      * @return {Boolean} True, if a collision was detected.
      */
-    intersect: function(other) {
+    intersect: function(other) { 
         if (other instanceof enchant.Entity) {
             return this._intersectOne(other);
         } else if (typeof other === 'function' && other.collection) {
