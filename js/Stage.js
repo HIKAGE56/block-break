@@ -70,8 +70,13 @@ Block = Class.create(Sprite,{
         }
     },
     onenterflame: function(){
-        if(intersect(Ball)){
-            this.parentNode.remove(this);
+        if(sprite.within(ball,1/4)){
+            this.backgroundColor = "yellow";
+            this.remove();
         }
+    },
+    remove: function(){
+        stage.removeChild(this);
+        delete this;
     }
 });

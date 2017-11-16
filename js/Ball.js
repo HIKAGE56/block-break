@@ -9,10 +9,10 @@ Ball = Class.create(Sprite,{
         this.Ydir = -SIZE;
     },
     onenterframe: function(){
-        if(this.intersect(Player)){
+        if(this.intersect(player) || this.intersect(stage)){
             this.Ydir = -this.Ydir;
         }else{
-            this.backgroundColor = "blue";
+            this.backgroundColor = "red";
             if(this.x >= WIDTH - SIZE || this.x <= 0){
                 this.Xdir = -this.Xdir;
             }
