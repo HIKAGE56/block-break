@@ -11,6 +11,10 @@ var WIDTH = SIZE * WIDE;
 var HEIGHT = SIZE * HEIG;
 function main(){
     game = new Core(WIDTH, HEIGHT); // game stage
+
+    game.keybind(65, "a");
+    game.keybind(68, "d");
+
     game.preload('img/IMG_1212.PNG'); 
     game.fps = 10;
     game.rootScene.backgroundColor = "black";
@@ -22,16 +26,15 @@ function main(){
 		game.collidables.push(wall);
 	});
     msg = new MSG(SIZE,SIZE,"white");
-    player = new Player(4,17);
-    game.paddle = player;
-    game.collidables.push(player);
+    playerGroup = new PlayerGroup(4,17);
+    game.collidables.push(playerGroup);
     ball = new Ball(5,14);
     game.ball = ball;
     stage = new Stage();
     game.collidables.push(stage);
     game.onload = function(){
         game.rootScene.addChild(stage);
-        game.rootScene.addChild(player);
+        game.rootScene.addChild(playerGroup);
         game.rootScene.addChild(ball);
         game.rootScene.addChild(msg);
     };

@@ -23,7 +23,7 @@ Stage = Class.create(Group,{
             cb = childBlocks[b];
             if(ba.collisionRect.intersect(cb)){
                 direction = (ba.y+ba.height*0.5 < cb.y+cb.height*0.5)?"d_up":"d_down";
-                ball.rebound(direction);
+                ba.rebound(direction);
                 this.removeChild(cb);
             }
             if(childBlocks.length == 0){
@@ -88,7 +88,7 @@ var Wall = enchant.Class.create(Sprite, {
 	//左・右・上部の壁
 	initialize: function(loc) {
 		var obj = {
-			left:  { rect: [0, 0, 0, HEIGHT], direction: "right" },
+			left:  { rect: [SIZE, 0, 0, HEIGHT], direction: "right" },
 			right: { rect: [game.width, 0, 0, HEIGHT], direction: "left" },
 			upper: { rect: [0, 0, WIDTH, 0], direction: "down" }
 		};

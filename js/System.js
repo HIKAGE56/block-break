@@ -31,3 +31,24 @@ function showMessage(state) {
 			restart(state);
 		});
 	}
+
+function rotate_xy(x,y){
+    var ua = navigator.userAgent;
+    var VENDER_PREFIX='';
+    if(x==null){x="50%"}
+    if(y==null){y=x;}
+    if (ua.indexOf('Opera') != -1) {
+        VENDER_PREFIX = 'O';
+    } else if (ua.indexOf('MSIE') != -1) {
+        VENDER_PREFIX = 'ms';
+    } else if (ua.indexOf('WebKit') != -1) {
+        VENDER_PREFIX = 'webkit';
+    } else if (navigator.product == 'Gecko') {
+        VENDER_PREFIX = 'Moz';
+    } else {
+        VENDER_PREFIX = '';
+    }
+    this._style[VENDER_PREFIX + 'TransformOrigin'] = x + " " + y;
+    //alert(x);
+}
+enchant.Entity.prototype.rotate_xy = rotate_xy;
