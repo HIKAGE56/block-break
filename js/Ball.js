@@ -2,9 +2,15 @@ enchant();
 Ball = Class.create(Sprite,{
     initialize: function(x,y){
         Sprite.call(this,SIZE,SIZE);
+        var fillArc = new Surface(SIZE,SIZE);
+        fillArc.context.fillStyle = "red";
+        fillArc.context.beginPath();
+        fillArc.context.arc(SIZE/2, SIZE/2, SIZE/2, 0, Math.PI * 2, false);
+        fillArc.context.fill();
+        this.image = fillArc;
         this.startX = x * SIZE;
         this.startY = y * SIZE;
-        this.backgroundColor = "red";
+        //this.backgroundColor = "red";
         this.collisionRect = new Sprite(SIZE*0.8,SIZE*0.8);
         game.rootScene.addChild(this.collisionRect);
         this.reset();
@@ -16,9 +22,15 @@ Ball = Class.create(Sprite,{
         this.collisionRect.moveBy(this.mx, this.my);
         var that = this;
         game.collidables.forEach(function(sprite, idx, arr) {
+            
 			if ( that.collisionRect.intersect(sprite) ) {
 				that.rebound(sprite.reboundDirection);
 			}
+            /*
+            if ( that.collisionRect.within(sprite,SIZE) ) {
+				that.rebound(sprite.reboundDirection);
+			}
+            */
 		});
         if(this.y > game.height){
             showMessage("Game Over");

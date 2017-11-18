@@ -88,9 +88,9 @@ var Wall = enchant.Class.create(Sprite, {
 	//左・右・上部の壁
 	initialize: function(loc) {
 		var obj = {
-			left:  { rect: [SIZE, 0, 0, HEIGHT], direction: "right" },
-			right: { rect: [game.width, 0, 0, HEIGHT], direction: "left" },
-			upper: { rect: [0, 0, WIDTH, 0], direction: "down" }
+			left:  { rect: [-SIZE*2, 0, SIZE*2, HEIGHT], direction: "right" },
+			right: { rect: [WIDTH, 0, SIZE*2, HEIGHT], direction: "left" },
+			upper: { rect: [-SIZE*2, -SIZE*2, WIDTH+SIZE*4, SIZE*2], direction: "down" }
 		};
 		var r = obj[loc].rect,
 			left = r[0], top = r[1], width = r[2], height = r[3];

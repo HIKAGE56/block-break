@@ -4,11 +4,6 @@ window.onload = function(){
     main();
 };
 
-var SIZE = 32;
-var WIDE = 11;
-var HEIG = 20;
-var WIDTH = SIZE * WIDE;
-var HEIGHT = SIZE * HEIG;
 function main(){
     game = new Core(WIDTH, HEIGHT); // game stage
 
@@ -26,9 +21,9 @@ function main(){
 		game.collidables.push(wall);
 	});
     msg = new MSG(SIZE,SIZE,"white");
-    playerGroup = new PlayerGroup(4,17);
+    playerGroup = new PlayerGroup();
     game.collidables.push(playerGroup);
-    ball = new Ball(5,14);
+    ball = new Ball(5,12);
     game.ball = ball;
     stage = new Stage();
     game.collidables.push(stage);

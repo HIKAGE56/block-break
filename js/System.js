@@ -1,3 +1,11 @@
+enchant();
+
+var SIZE = 32;
+var WIDE = 11;
+var HEIG = 20;
+var WIDTH = SIZE * WIDE;
+var HEIGHT = SIZE * HEIG;
+
 function restart(state) {
 		//ゲーム再開処理
 		[game.paddle, game.ball].forEach(function(e, i, arr) {
