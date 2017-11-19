@@ -23,15 +23,23 @@ function main(){
     msg = new MSG(SIZE,SIZE,"white");
     playerGroup = new PlayerGroup();
     game.collidables.push(playerGroup);
+    game.paddle = playerGroup;
     ball = new Ball(5,12);
     game.ball = ball;
     stage = new Stage();
     game.collidables.push(stage);
+    var message = new Message();
+	game.message = message;
+    var info = new Information();
+	game.rootScene.addChild(info);
+	game.info = info;
+    
     game.onload = function(){
         game.rootScene.addChild(stage);
         game.rootScene.addChild(playerGroup);
         game.rootScene.addChild(ball);
         game.rootScene.addChild(msg);
+        game.rootScene.addChild(message);
     };
     game.start(); // start your game!
 };

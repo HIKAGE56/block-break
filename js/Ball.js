@@ -1,41 +1,26 @@
 enchant();
+BallSize = SIZE/2;
 Ball = Class.create(Sprite,{
     initialize: function(x,y){
-        Sprite.call(this,SIZE,SIZE);
-        var fillArc = new Surface(SIZE,SIZE);
-        fillArc.context.fillStyle = "red";
-        fillArc.context.beginPath();
-        fillArc.context.arc(SIZE/2, SIZE/2, SIZE/2, 0, Math.PI * 2, false);
-        fillArc.context.fill();
-        this.image = fillArc;
+        Sprite.call(this,BallSize,BallSize);
         this.startX = x * SIZE;
         this.startY = y * SIZE;
-        //this.backgroundColor = "red";
-        this.collisionRect = new Sprite(SIZE*0.8,SIZE*0.8);
-        game.rootScene.addChild(this.collisionRect);
         this.reset();
     },
     onenterframe: function(){
         this.mx = Math.sin(this.angle)*this.speed;
         this.my = Math.cos(this.angle)*this.speed;
         this.moveBy(this.mx, this.my);
-        this.collisionRect.moveBy(this.mx, this.my);
         var that = this;
         game.collidables.forEach(function(sprite, idx, arr) {
             
-			if ( that.collisionRect.intersect(sprite) ) {
+			if ( that.intersect(sprite) ) {
 				that.rebound(sprite.reboundDirection);
 			}
-            /*
-            if ( that.collisionRect.within(sprite,SIZE) ) {
-				that.rebound(sprite.reboundDirection);
-			}
-            */
 		});
         if(this.y > game.height){
-            showMessage("Game Over");
+            showMessage("game_over");
         }
-        //msg.text = "(" + this.mx + "," + this.my + ")";
     },
     rebound: function(direction) {
 			//各方向へ反発させる
@@ -44,7 +29,6 @@ Ball = Class.create(Sprite,{
 				this.angle *= -1;
 				mv = 2*this.mx;
 				this.x -= mv
-				this.collisionRect.x -= mv;
 				return;
 			}
 
@@ -61,17 +45,19 @@ Ball = Class.create(Sprite,{
 			}
 			mv = 2*this.my;
 			this.y -= mv;
-			this.collisionRect.y -= mv;
 		},
 		reset: function() {
+            var fillArc = new Surface(BallSize,BallSize);
+            fillArc.context.fillStyle = "red";
+            fillArc.context.beginPath();
+            fillArc.context.arc(BallSize/2, BallSize/2, BallSize/2, 0, Math.PI * 2, false);
+            fillArc.context.fill();
+            this.image = fillArc;
 			this.x = this.startX;
             this.y = this.startY;
 			this.angle = getRaisedAngle();
 			this.speed = 3*(60/game.fps);
 			this.mx = this.my = 0;
-			var rSize = this.collisionRect.width;
-			this.collisionRect.moveTo(this.x+(this.width-rSize)*0.5,
-			                          this.y+(this.height-rSize)*0.5);
 		}
 });
 

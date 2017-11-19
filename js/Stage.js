@@ -21,13 +21,13 @@ Stage = Class.create(Group,{
         ba = game.ball;
         for(var b in childBlocks){
             cb = childBlocks[b];
-            if(ba.collisionRect.intersect(cb)){
+            if(ba.intersect(cb)){
                 direction = (ba.y+ba.height*0.5 < cb.y+cb.height*0.5)?"d_up":"d_down";
                 ba.rebound(direction);
                 this.removeChild(cb);
             }
             if(childBlocks.length == 0){
-                showMessage("Clear!!");
+                showMessage("stage_clear");
             }
         }
         msg.text = childBlocks.length;

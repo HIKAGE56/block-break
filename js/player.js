@@ -2,13 +2,10 @@ enchant();
 
 playerWidth = SIZE/2;
 playerHeight = SIZE/2;
-playerX = WIDTH/2+SIZE/8;
+playerX = WIDTH/2-playerWidth;
 playerY = 15*SIZE;
 guardHeight = SIZE*3;
-guardWidth = SIZE/4;
-//guardHeight = SIZE/4;
-//guardWidth = SIZE*3;
-
+guardWidth = SIZE/2;
 
 Player = Class.create(Sprite,{
     initialize: function(x,y){
@@ -21,13 +18,12 @@ Player = Class.create(Sprite,{
         this.image = fillArc;
         this.startX = x;
         this.startY = y;
-        //this.backgroundColor = "green";
         this.reboundDirection = "d_up";
         this.reset();
     }, 
     reset: function() {
-		this.x = this.startX;
-		this.y = this.startY;
+		this.x = playerX;
+		this.y = playerY;
 	}
 });
 
@@ -41,7 +37,7 @@ Guard = Class.create(Sprite,{
         this.reset();
     },  
     reset: function() {
-		this.x = this.startX;
+        this.x = this.startX;
 		this.y = this.startY;
 	}
 });
@@ -57,7 +53,6 @@ PlayerGroup = Class.create(Group,{
         this.addChild(player);
         this.addChild(guard1);
         this.addChild(guard2);
-        game.paddle = player;
     },
     onenterframe: function(){
         if(this.x<WIDTH-guardHeight*2+playerWidth)if(game.input.right){this.x+=SIZE;}
@@ -73,16 +68,15 @@ PlayerGroup = Class.create(Group,{
         gb = game.ball;
         for(var c in childPlayer){
             cp = childPlayer[c];
-            if(gb.collisionRect.intersect(cp)){
+            if(gb.intersect(cp)){
                 direction = (gb.y+gb.height*0.5 < cp.y+cp.height*0.5)?"d_up":"d_down";
-                //direction = (gb.y+gb.height*0.5 < cp.y+cp.width*0.5)?"d_up":"d_down";
-                //direction = "d_up";
                 gb.rebound(direction);
             }
         }
         this.reset();
     },
     reset: function(){
+        player.reset();
         guard1.x = playerX-guardWidth-guardHeight;
         guard2.x = playerX+playerWidth+guardHeight;
     }
