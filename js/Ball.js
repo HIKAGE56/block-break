@@ -1,8 +1,10 @@
 enchant();
 BallSize = SIZE/2;
-Ball = Class.create(Sprite,{
+//Ball = Class.create(Sprite,{
+Ball = Class.create(PhyCircleSprite,{
     initialize: function(x,y){
-        Sprite.call(this,BallSize,BallSize);
+        //Sprite.call(this,BallSize,BallSize);
+		PhyCircleSprite.call(this,BallSize/2, DYNAMIC_SPRITE, 1.0, 0.5, 0.2, true);
         this.startX = x * SIZE;
         this.startY = y * SIZE;
         this.reset();
@@ -12,11 +14,15 @@ Ball = Class.create(Sprite,{
         this.my = Math.cos(this.angle)*this.speed;
         this.moveBy(this.mx, this.my);
         var that = this;
-        game.collidables.forEach(function(sprite, idx, arr) {
-            
+        game.collidables.forEach(function(sprite, idx, arr) {   
+			/*
 			if ( that.intersect(sprite) ) {
 				that.rebound(sprite.reboundDirection);
 			}
+			*/
+			that.contact(function(sprite){
+				that.rebound(sprite.reboundDirection);
+			});
 		});
         if(this.y > game.height){
             showMessage("game_over");

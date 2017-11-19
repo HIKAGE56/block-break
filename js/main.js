@@ -6,12 +6,12 @@ window.onload = function(){
 
 function main(){
     game = new Core(WIDTH, HEIGHT); // game stage
-
+    physicsWorld = new PhysicsWorld(0, 9.8);//weight
     game.keybind(65, "a");
     game.keybind(68, "d");
 
     game.preload('img/IMG_1212.PNG'); 
-    game.fps = 10;
+    game.fps = 24;
     game.rootScene.backgroundColor = "black";
     game.collidables = [];
 
@@ -40,6 +40,9 @@ function main(){
         game.rootScene.addChild(ball);
         game.rootScene.addChild(msg);
         game.rootScene.addChild(message);
+        game.rootScene.onenterfram = function(){
+            physicsWorld.step(game.fps);
+        }
     };
     game.start(); // start your game!
 };

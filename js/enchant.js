@@ -2556,6 +2556,8 @@ enchant.Entity = enchant.Class.create(enchant.Node, {
         }
         return this._offsetX < other._offsetX + other.width && other._offsetX < this._offsetX + this.width &&
             this._offsetY < other._offsetY + other.height && other._offsetY < this._offsetY + this.height;
+        //return this._x < other._offsetX + other.width && other._offsetX < this._x+ this.width &&
+        //    this._y < other._offsetY + other.height && other._offsetY < this._y + this.height;
     },
     intersectStrict: function(other) {
         if (other instanceof enchant.Entity) {
